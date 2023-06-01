@@ -73,18 +73,29 @@
   <ion-grid *ngFor="let item of (cart$ | async).items">
     <ion-row>
         <!-- <ion-col class="center">{{detail.productId}}</ion-col> -->
-        <ion-col size="6">{{item.productName}}</ion-col>     
-        <ion-col size="1"  class="left" >{{item.uom}}</ion-col>     
-        <ion-col  size="1" class="right">${{item.price | number:'1.2-2'}}</ion-col>
-        <ion-col size="1" class="right">${{item.quantity * item.price | number:'1.2-2'}}</ion-col>
+        <ion-col size="6">{{item.productName}}</ion-col>   
+      
+          <ion-col size="1"  class="left" >{{item.uom}}</ion-col>   
+
+          
+        <ion-col  size="1" class="left">
+          <!-- ${{item.price | number:'1.2-2'}} -->
+          <ion-input type="text" [(ngModel)]="item.price" id="itemPrice"></ion-input>
+        </ion-col>
+        <ion-col size="1" class="left">${{item.quantity * item.price | number:'1.2-2'}}</ion-col>
         <ion-buttons>
+          <ion-button (click)="decrementItemQuantity(item)">
+            <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+
+            <ion-item>
+              <!-- {{item.quantity}} -->
+              <ion-input type="text" [(ngModel)]="item.quantity" id="itemQty"></ion-input>
+            </ion-item>
             <ion-button (click)="incrementItemQuantity(item)">
               <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
             </ion-button>
-            <ion-item>{{item.quantity}}</ion-item>
-            <ion-button (click)="decrementItemQuantity(item)">
-              <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
-            </ion-button>
+           
           </ion-buttons>
           <ion-button  color="secondary" (click)="removeFromCart(item)">Remove </ion-button>
     </ion-row>

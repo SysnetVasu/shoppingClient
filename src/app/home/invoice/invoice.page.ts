@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { IOrder } from 'src/app/_models/order';
 import { InvoiceService } from 'src/app/_services/Invoice.service ';
 import { OrderService } from 'src/app/_services/order.service';
@@ -26,7 +26,7 @@ export class InvoicePage implements OnInit {
   ngOnInit() {
      this.getInvoiceList();
   }
-
+ 
   //Gets all orders.
   getInvoiceList(){
 
