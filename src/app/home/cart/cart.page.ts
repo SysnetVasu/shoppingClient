@@ -58,7 +58,7 @@ export class CartPage implements OnInit {
 
         var sum = 0;
         var itemCount=0;
-      
+
         // for(let order of (cart$).items ){
         //   sum = sum + order.quantity * order.price;
         //   itemCount=  itemCount+1;
@@ -107,13 +107,32 @@ export class CartPage implements OnInit {
   decrementItemQuantity(item: ICartItem) {
     this.cartService.decrementItemQuantity(item);
   }
-  
+  itemBulkQuantity(event: any,item:ICartItem)
+  {
+    console.log("event :", event);
+    this.cartService.itemBulkQuantity(item);
+   
+
+  }
   //Removes single item from cart.
   removeFromCart(item)
   {
     this.cartService.removeItemFromCart(item);
   }
+  numberOnlyValidation(event: any,item:ICartItem) {
+    console.log("numberOnlyValidation :", event);
+    console.log("item :", item);
+    const pattern = /[0-9.,]/;
+    let inputChar = String.fromCharCode(event.charCode);
 
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+ 
+    }
+
+  }
+  
   //Creates orders.
    createOrder()
   { 

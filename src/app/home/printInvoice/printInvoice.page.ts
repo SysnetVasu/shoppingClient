@@ -24,7 +24,7 @@ export class PrintInvoicePage implements OnInit {
   isCartSet=this.cartService.isCartSet;
 
   routeSub: any;
-  productID: any;
+  invoiceNo: any;
   printInvoice: string;
   constructor(
     private productsService:ProductsService,
@@ -35,16 +35,22 @@ export class PrintInvoicePage implements OnInit {
     private loadingController: LoadingController,
     private route: ActivatedRoute,
     private navCtrl: NavController    
-  ) { 
+  )
+ 
+  { 
     this.activatedRoute.params.subscribe(params => {
       this.routeSub = params;
-      this.productID = this.routeSub.productId;     
-      console.log('route id', this.productID)
+      console.log('pa rams', params.id)
+      this.printInvoice = this.routeSub.id;     
+      console.log('route id', this.invoiceNo)
     });
   }
 
   ngOnInit() {
-    this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
+     this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
+     console.log('print:',  this.printInvoice);
+   // this.printInvoice="D:/Suresh/Testing/Core/Working/IonciApps/ShoppingAPI/shoppingAPI/shopping-app-server/Content/Invoice/IN-20230325053443.pdf";
+    
   }
 
   incrementQuantity() {
@@ -61,45 +67,45 @@ export class PrintInvoicePage implements OnInit {
   }
 
 
-  //Gets product by its Id.
-  loadProduct() {
-    console.log(' get product id ',this.productID)
-    this.loadingController
-    .create({ message:"loading..."})
-    .then(loadingEl => {
-          loadingEl.present();  
-          this.productsService.getProduct(this.productID)
-        .subscribe((product) => 
-        {
-            this.product = product;          
-            console.log('load product by id : ',this.product);
-            loadingEl.dismiss();
-        }, error => {
-          console.log(error);
-        });  
-    });
-    //this.product=this.products.find(p=> p.id  ===  (+this.activatedRoute.snapshot.paramMap.get('productId')));
-  }
+  // //Gets product by its Id.
+  // loadProduct() {
+  //   console.log(' get product id ',this.productID)
+  //   this.loadingController
+  //   .create({ message:"loading..."})
+  //   .then(loadingEl => {
+  //         loadingEl.present();  
+  //         this.productsService.getProduct(this.productID)
+  //       .subscribe((product) => 
+  //       {
+  //           this.product = product;          
+  //           console.log('load product by id : ',this.product);
+  //           loadingEl.dismiss();
+  //       }, error => {
+  //         console.log(error);
+  //       });  
+  //   });
+  //   //this.product=this.products.find(p=> p.id  ===  (+this.activatedRoute.snapshot.paramMap.get('productId')));
+  // }
   
-  getProductDetails()
-  {
+  // getProductDetails()
+  // {
     
-    this.loadingController
-    .create({ message:"loading..."})
-    .then(loadingEl => {
-          loadingEl.present();
-          console.log('getProductDetails id : ', this.productID);
-          this.productsService.getProduct(this.productID)
-        .subscribe((product) => 
-        {
-            this.product = product;
-            console.log('getProductDetails by id : ',this.product);
-            loadingEl.dismiss();
-        }, error => {
-          console.log(error);
-        });  
-    });
-  }
+  //   this.loadingController
+  //   .create({ message:"loading..."})
+  //   .then(loadingEl => {
+  //         loadingEl.present();
+  //         console.log('getProductDetails id : ', this.productID);
+  //         this.productsService.getProduct(this.productID)
+  //       .subscribe((product) => 
+  //       {
+  //           this.product = product;
+  //           console.log('getProductDetails by id : ',this.product);
+  //           loadingEl.dismiss();
+  //       }, error => {
+  //         console.log(error);
+  //       });  
+  //   });
+  // }
 
   //Adds items into cart. 
   addToCart() {

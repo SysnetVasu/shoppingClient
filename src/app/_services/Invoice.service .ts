@@ -43,6 +43,6 @@ export class InvoiceService {
   //PDF an Invoice.
  getPrintInvoice(invoiceNo: any) {
 
-  return this.http.get(this.baseUrl + 'Invoice/GetPrintInvoce?InvoiceNo='+ invoiceNo);
+  return this.http.get(this.baseUrl + 'Invoice/PrintInvoice/'+ invoiceNo);
 }
 }

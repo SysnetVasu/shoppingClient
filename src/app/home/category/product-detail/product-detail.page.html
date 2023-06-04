@@ -71,7 +71,7 @@
     <ion-row>
       <ion-item>
         <!-- {{quantity}} -->
-        <ion-input type="text" [(ngModel)]="product.price" id="itemPrice"></ion-input>
+        <ion-input type="number" [(ngModel)]="product.price" id="itemPrice"></ion-input>
       </ion-item>
       <!-- <ion-col size="8">&nbsp;{{product.price | currency:'SGD'}}</ion-col> -->
     </ion-row>
@@ -88,7 +88,7 @@
       </ion-button>
       <ion-item>
         <!-- {{quantity}} -->
-        <ion-input type="text" [(ngModel)]="quantity" id="itemQty"></ion-input>
+        <ion-input type="number" [(ngModel)]="quantity" id="itemQty"></ion-input>
       </ion-item>
       <ion-button (click)="incrementQuantity()">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>

@@ -65,8 +65,8 @@
       <ion-row>
         <ion-col size="6">Description</ion-col>
         <ion-col  size="1">UOM</ion-col> 
-        <ion-col  size="1">Price</ion-col>
-        <ion-col  size="1">Total</ion-col>
+        <ion-col  size="2">Price</ion-col>
+        <ion-col  size="2">Total</ion-col>
         <ion-col>Qty</ion-col>
       </ion-row>
   </ion-card>
@@ -78,25 +78,24 @@
           <ion-col size="1"  class="left" >{{item.uom}}</ion-col>   
 
           
-        <ion-col  size="1" class="left">
+        <ion-col  size="2" class="left">
           <!-- ${{item.price | number:'1.2-2'}} -->
-          <ion-input type="text" [(ngModel)]="item.price" id="itemPrice"></ion-input>
+          <ion-input type="number" [(ngModel)]="item.price" id="itemPrice"  (change)="itemBulkQuantity($event,item)"></ion-input>
         </ion-col>
-        <ion-col size="1" class="left">${{item.quantity * item.price | number:'1.2-2'}}</ion-col>
+        <ion-col size="3" class="left">${{item.quantity * item.price | number:'1.2-2'}}</ion-col>
         <ion-buttons>
           <ion-button (click)="decrementItemQuantity(item)">
             <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-
-            <ion-item>
+          </ion-button>  
+          <ion-col  size="2" class="left">
               <!-- {{item.quantity}} -->
-              <ion-input type="text" [(ngModel)]="item.quantity" id="itemQty"></ion-input>
-            </ion-item>
+              <ion-input type="text" [(ngModel)]="item.quantity" id="itemQty" (change)="itemBulkQuantity($event,item)"></ion-input>
+          </ion-col>
             <ion-button (click)="incrementItemQuantity(item)">
               <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
             </ion-button>
            
-          </ion-buttons>
+        </ion-buttons>
           <ion-button  color="secondary" (click)="removeFromCart(item)">Remove </ion-button>
     </ion-row>
   </ion-grid>
@@ -108,7 +107,7 @@
       <ion-col>{{totalItems}}</ion-col>
       <ion-col></ion-col>
       <ion-col></ion-col>
-      <ion-col size="4">TOTAL AMOUNT: {{ (cartTotals$ | async).subtotal| currency:' SGD ' }}</ion-col>
+      <ion-col size="4">TOTAL AMOUNT: {{ (cartTotals$ | async).total| currency:' SGD ' }}</ion-col>
     </ion-row>
   </ion-card>
 

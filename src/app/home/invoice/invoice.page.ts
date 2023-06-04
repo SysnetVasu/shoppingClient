@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { IOrder } from 'src/app/_models/order';
@@ -15,7 +15,8 @@ export class InvoicePage implements OnInit {
   baseUrl = environment.apiUrl;
   //orders:IOrder[];
   invoiceList: any;
-  printInvoice: any;
+  invoiceNo: any;
+  @Input() printInvoice: any;
   constructor(
     private orderService:OrderService,
     private invoiceService:InvoiceService,
@@ -86,13 +87,13 @@ console.log('Create Invoice: ',orderId);
 
     onPreviewImage(value: any) {
      
-      this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
-      console.log("pdf file: ",this.printInvoice);
+      //this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
+      // console.log("pdf file: ",this.printInvoice);
       console.log('OnPreview image id:', value);
-      // this.invoiceService.getPrintInvoice(value.id).subscribe(data => {
-      //   this.printInvoice = data;
-      //   console.log('printInvoice:', this.printInvoice);
-      // })
+      this.invoiceService.getPrintInvoice(value.id).subscribe(data => {
+        this.printInvoice = data;
+        console.log('printInvoice:', this.printInvoice);
+      })
       this.router.navigate(['/home/printInvoice']);
     }
     // openAndroidPDF(){

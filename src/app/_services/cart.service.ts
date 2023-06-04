@@ -75,7 +75,13 @@ export class CartService {
     this.setCart(cart);
     console.log('customer id - updated to cart details: ',cart);
   }
-
+//Increments item quantity.
+itemBulkQuantity(item: ICartItem) {
+  const cart = this.getCurrentCartValue();
+  const itemIndex = cart.items.findIndex(x => x.productId === item.productId);
+  cart.items[itemIndex].quantity;
+  this.setCart(cart);
+}
   //Increments item quantity.
   incrementItemQuantity(item: ICartItem) {
     const cart = this.getCurrentCartValue();
@@ -153,12 +159,13 @@ export class CartService {
   // }
 
   //Calculates total value.
-  private calculateTotals() {
+  calculateTotals() {
     const cart = this.getCurrentCartValue();
     const shipping = this.shipping;
     const subtotal = cart.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
     const total = subtotal + shipping;
     this.cartTotalSource.next({shipping, total, subtotal});
+    console.log("calculateTotals Total: ",total);
   
   }
 
