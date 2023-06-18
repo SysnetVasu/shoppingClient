@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { IOrder } from 'src/app/_models/order';
+import { IOrder, IOrderToInvoice } from 'src/app/_models/order';
 import { InvoiceService } from 'src/app/_services/Invoice.service ';
+// import { NotifyService } from 'src/app/_services/notify.service';
 import { OrderService } from 'src/app/_services/order.service';
 
 @Component({
@@ -13,8 +14,10 @@ import { OrderService } from 'src/app/_services/order.service';
 export class OrdersPage implements OnInit {
 
   //orders:IOrder[];
+  order: IOrderToInvoice ;
   orders: any;
   constructor(
+    // private notifyservice: NotifyService,
     private orderService:OrderService,
     private invoiceService:InvoiceService,
     private loadingController: LoadingController,
@@ -63,21 +66,44 @@ export class OrdersPage implements OnInit {
       console.log('getproduct details:',orderId);
       this.router.navigate(['/home/orders/order-details/' + orderId]);
     }
+    editOrderdetails(orderId: any)
+    {
+      console.log('edit order details:',orderId);
+      this.router.navigate(['/home/orders/orderedit/' + orderId]);
+    }
 
    
     //Delets an order by id.
-    createInvoice(orderId){
-console.log('Create Invoice: ',orderId);
+    createInvoice(OrderId: any){
+
+      console.log('Create Invoice - orderid: ',OrderId);
       this.loadingController
-      .create({ message:"converting sales Invoice..."})
+      .create({ message:"Converting to sales Invoice..."})
       .then(loadingEl => {
           loadingEl.present();
 
-          this.invoiceService.createInvoice(orderId).subscribe(()=>
-          {
+          this.invoiceService.createInvoice(OrderId).subscribe((invoiceID)=>
+          {            
+          console.log('Invoice - Id: ',invoiceID);
+           this.createInvoicePDF(invoiceID);
             loadingEl.dismiss();
             this.getOrders();
+          }, err => {            
+            // this.notifyservice.showError('error on create Invoice :', 'Error')
           });
     });
     }
+
+    createInvoicePDF(value: any) {    
+      
+      console.log('createInvoicePDF id:', value);
+      this.invoiceService.getPrintInvoice(value).subscribe(data => {        
+        console.log('Create Invoice PDF:', data);
+      }
+      , err => {            
+        // this.notifyservice.showError('error on create Invoice PDF file :', 'Error')
+      });
+     
+    }
+    
 }

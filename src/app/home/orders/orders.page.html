@@ -66,6 +66,8 @@
           <ion-col class="right">${{order.totalPrice | number:'1.2-2'}}</ion-col>
       
             <ion-col ion-text color="success" (click)="getOrderdetails(order.id)">View</ion-col>  
+            <ion-col ion-text color="success" (click)="editOrderdetails(order.id)">Edit</ion-col>  
+       
             <ion-button class="btn-primary btn-sm" (click)="createInvoice(order.id)">Create Invoice</ion-button>  
             <!-- <ion-col ion-text color="success" (click)="deleteOrder(order.id)">Cancel Order</ion-col>   -->
         

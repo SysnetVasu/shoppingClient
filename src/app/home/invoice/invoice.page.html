@@ -64,13 +64,22 @@
           <ion-col  class="left" size="1.5"> {{invoice.date | date:'dd/MM/yyyy'}}</ion-col>
           <ion-col class="left" size="2"> {{invoice?.invoiceNo}}</ion-col>          
           <ion-col  class="left"size="3"> {{invoice.customer?.name}}</ion-col>    
-          <ion-col class="right">${{invoice.netTotal | number:'1.2-2'}}</ion-col>
-          <ion-button color="success" (click)="onPreviewImage(invoice.id)"> 
-            <!-- <ion-button cion-button primary (click)="openAndroidPDF(invoice.invoiceNo)"> -->
-            
-            print          
-          </ion-button>   
-            <ion-col ion-text color="success" (click)="getInvoiceetails(invoice.id)">Details</ion-col>  
+          <ion-col class="right"size="3">${{invoice.netTotal | number:'1.2-2'}}</ion-col>
+          <ion-col  class="right"size="1">            
+            <a target="_blank" href="{{printInvoice +invoice?.invoiceNo+'.pdf'}}">
+              <img src="assets/icon/pdf.png">
+            </a> 
+          </ion-col>
+          
+          
+          <!-- <ion-button color="success" (click)="onPreviewImage(invoice.id)"> 
+              
+          </ion-button>    -->
+          <!-- <ion-col>
+            <img src="{{this.printInvoice}}">  
+          </ion-col>  -->
+             
+            <ion-col ion-text color="success" (click)="getInvoiceetails(invoice.id)">View</ion-col>  
             <!-- <ion-col ion-text color="success" (click)="createInvoice(order.id)">Create Invoice</ion-col>   -->
             <!-- <ion-col ion-text color="success" (click)="deleteOrder(order.id)">Cancel Order</ion-col>   -->
         

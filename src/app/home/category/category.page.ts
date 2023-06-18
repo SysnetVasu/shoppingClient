@@ -37,28 +37,32 @@ export class CategoryPage implements OnInit {
   }
   //Gets all categories.
   
-  getCategories()
-  {      
+  // getCategories()
+  // {      
     
-      this.productsService.getCategories().then(data => {
-        this.categories =data;        
-        console.log(this.categories);
-      }, error => {       
-        alert("Unable to connect apps server..");        
-      });
+  //     this.productsService.getCategories().then(data => {
+  //       this.categories =data;        
+  //       console.log(this.categories);
+  //     }, error => {       
+  //       alert("Unable to connect apps server..");        
+  //     });
       
-  }
-//   loadData(event: any) {
-//     setTimeout(() => {
-//         this.categories.push(...this.categories);
-//         this.searchData(1);
-//         event.target.complete();
-//         // App logic to determine if all data is loaded
-//         // and disable the infinite scroll
-//         if (this.products.length == 100) {
-//             event.target.disabled = true;
-//         }
-//     }, 500);
-// }
+  // }
+ //Gets all categories.
+ getCategories()
+ {
+   this.loadingController
+   .create({ message:"loading..."})
+   .then(loadingEl => {
+     loadingEl.present();
+     this.productsService.getCategories().then(data => {
+       this.categories =data;
+       loadingEl.dismiss();
+       console.log(this.categories);
+     }, error => {
+       console.log(error);
+     });
+     });
+ }
 
 }

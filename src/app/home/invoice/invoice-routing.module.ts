@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'invoice-details/:Id',
     loadChildren: () => import('./invoice-details/invoice-details.module').then( m => m.InvoiceDetailsPageModule)
+  },
+  {
+    path: 'printInvoice',
+    loadChildren: () => import('./printInvoice/printInvoice.module').then( m => m.PrintInvoicePageModule)
   }
 ];
 

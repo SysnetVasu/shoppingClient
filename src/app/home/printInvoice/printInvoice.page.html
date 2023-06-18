@@ -1,15 +1,48 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">   
-      <ion-back-button defaultHref="/home/tabs/category/productdetail"></ion-back-button>
+      <ion-back-button defaultHref="/home/Invoice"></ion-back-button>
     </ion-buttons>
-    <ion-title>Product Details</ion-title>
+    <ion-title>Invoice</ion-title>
   </ion-toolbar>
-</ion-header> -->
-<div>
+</ion-header>
+
+<!-- <div>
   <ion-content>
     <img src="{{printInvoice}}">
-    <!-- <pdf-viewer [src]="printInvoice" [original-size]="false"></pdf-viewer> -->
+    <pdf-viewer [src]="printInvoice" [original-size]="false"></pdf-viewer>
   </ion-content>
  
-</div>
+</div> -->
+<ion-app>
+  <object data={{this.printInvoice}} type="application/pdf" width="100%" height="100%">
+    <p>It appears you don't have a PDF plugin for this browser.</p>
+   </object>
+</ion-app>
+<ion-app>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="pdfLoaded">
+    <object
+      type="application/pdf"
+      width="100%"
+      height="100%"
+      style="min-height: 500px;"
+      [data]="safePdfBase64String"
+    >
+      
+    </object>
+  </ng-container>
+
+  <input
+    #input
+    id="pdf"
+    name="pdf"
+    type="file"
+    accept=".pdf"
+    [hidden]="true"
+    (change)="loadPdf($event)"
+  />
+  <ion-button size="large" (click)="input.click()">Load PDF</ion-button>
+</ion-content>
+</ion-app>

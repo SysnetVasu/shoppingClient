@@ -8,7 +8,25 @@ import { CartService } from '../../_services/cart.service';
 import { OrderService } from '../../_services/order.service';
 import { ProductsService } from '../../_services/products.service';
 import { environment } from 'src/environments/environment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+function convertFileToBase64String(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      const result = reader.result;
+
+      if (!result) {
+        reject('result is null');
+        return;
+      }
+
+      resolve(reader.result.toString());
+    });
+    reader.addEventListener('error', reject);
+    reader.readAsDataURL(file);
+  });
+}
 
 @Component({
   selector: 'app-printInvoice',
@@ -16,7 +34,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./printInvoice.page.scss'],
 })
 export class PrintInvoicePage implements OnInit {
-
+  safePdfBase64String: SafeResourceUrl; // 👈 declare the variable as a SafeResourceUrl
+  pdfLoaded = false;
   baseUrl = environment.apiUrl;
   products:any;
   product: any;
@@ -26,7 +45,7 @@ export class PrintInvoicePage implements OnInit {
   routeSub: any;
   invoiceNo: any;
   printInvoice: string;
-  constructor(
+  constructor(private sanitizer: DomSanitizer,
     private productsService:ProductsService,
     private cartService:CartService,
     private activatedRoute:ActivatedRoute,
@@ -38,14 +57,34 @@ export class PrintInvoicePage implements OnInit {
   )
  
   { 
+    this.safePdfBase64String =
+    this.sanitizer.bypassSecurityTrustResourceUrl('');
+
     this.activatedRoute.params.subscribe(params => {
       this.routeSub = params;
       console.log('pa rams', params.id)
       this.printInvoice = this.routeSub.id;     
-      console.log('route id', this.invoiceNo)
+      console.log('route id', this.printInvoice)
     });
   }
+  async loadPdf(event: Event) {
+    
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
 
+    const file = files.item(0);
+    
+
+    if (!file) {
+      return;
+    }
+
+    const rawPdfBase64String = await convertFileToBase64String(file);
+ 
+    this.safePdfBase64String =
+      this.sanitizer.bypassSecurityTrustResourceUrl(rawPdfBase64String);
+    this.pdfLoaded = true;
+  }
   ngOnInit() {
      this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
      console.log('print:',  this.printInvoice);

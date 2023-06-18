@@ -32,12 +32,11 @@
   
   <ion-card class="total">
     <ion-row>
+      <ion-col size="3">Total items: {{totalItems}}</ion-col>
       <ion-col></ion-col>
-      <ion-col size="3">Total items:</ion-col>
-      <ion-col>{{totalItems}}</ion-col>
-      <ion-col></ion-col>
-      <ion-col></ion-col>
-      <ion-col size="4">TOTAL AMOUNT: ${{total| number:'1.2-2'}}</ion-col>
+      <ion-col size="2">Total: ${{total| number:'1.2-2'}}</ion-col>
+      <ion-col size="2">Gst: ${{gst| number:'1.2-2'}}</ion-col>
+      <ion-col size="3"> NetTotal: ${{netTotal| number:'1.2-2'}}</ion-col>
     </ion-row>
   </ion-card>
 

@@ -18,6 +18,7 @@ export class ProductsService {
   getAllProductsUrl=this.baseUrl+'api/products';
   getAllCategoryUrl=this.baseUrl+'api/products/categories';
   getCategoryProductsUrl=this.baseUrl+'api/products/categoryporducts';
+  getPromotionDisplayUrl=this.baseUrl+'api/products/promotiondisplay';
   // getAllProductsUrl='https://151.192.64.18:1792/apps/api/products';
   // getAllCagegoryUrl='https://151.192.64.18:1792/apps/api/products/categories';
   // getAllProductsUrl='http://192.168.48.53:5352/api/products';
@@ -126,5 +127,18 @@ constructor(public http: HttpClient) { }
      });
    });
  }
+
+ getPromotionDisplay(){
+  console.log('get Promotiondisplay url:  ',this.getPromotionDisplayUrl);
+ return new Promise(resolve =>{
+   this.http.get(this.getPromotionDisplayUrl).subscribe(data =>{
+     resolve(data);
+     console.log(data);
+   },
+     err => {
+       console.log(err);
+   });
+ });
+}
  
 }

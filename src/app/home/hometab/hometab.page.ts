@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ICategory } from 'src/app/_models/category';
 import { ProductsService } from 'src/app/_services/products.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-hometab',
@@ -11,7 +12,9 @@ import { ProductsService } from 'src/app/_services/products.service';
 export class HometabPage implements OnInit {
 
   // categories:ICategory[]=[];
+  baseUrl = environment.apiUrl;
   categories:any=[];
+  promotiondisplay:any=[];
   constructor(
     private productsService:ProductsService,
     private loadingController:LoadingController
@@ -19,6 +22,7 @@ export class HometabPage implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.getPromotionDisplay();
   }
 
   
@@ -33,6 +37,22 @@ export class HometabPage implements OnInit {
         this.categories =data;
         loadingEl.dismiss();
         console.log(this.categories);
+      }, error => {
+        console.log(error);
+      });
+      });
+  }
+  //Gets promotion images.
+  getPromotionDisplay()
+  {
+    this.loadingController
+    .create({ message:"loading..."})
+    .then(loadingEl => {
+      loadingEl.present();
+      this.productsService.getPromotionDisplay().then(data => {
+        this.promotiondisplay =data;
+        loadingEl.dismiss();
+        console.log('promotiondisplay: ',this.promotiondisplay);
       }, error => {
         console.log(error);
       });

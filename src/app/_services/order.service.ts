@@ -15,6 +15,7 @@ export class OrderService {
 
   //Creates an order.
   creatOrder(order: IOrderToCreate) {
+    console.log('create Order url:  ',this.baseUrl + 'orders', order);
     return this.http.post(this.baseUrl + 'orders', order);
   }
   

@@ -53,9 +53,14 @@ const routes: Routes = [
     ]
    
   },
+  // {
+  //   path: '',
+  //   redirectTo:'/home/tabs/hometab',
+  //   pathMatch:'full'
+  // },
   {
     path: '',
-    redirectTo:'/home/tabs/hometab',
+    redirectTo:'/home/tabs/cart',
     pathMatch:'full'
   },
   {
@@ -68,12 +73,12 @@ const routes: Routes = [
     // path: 'invoicelist',
     // loadChildren: () => import('../invoicelist/invoicelist.module').then( m => m.InvoicelistPageModule)
   },
-  {
-    path: 'printInvoice',
-    loadChildren: () => import('./printInvoice/printInvoice.module').then( m => m.PrintInvoicePageModule)
-    // path: 'invoicelist',
-    // loadChildren: () => import('../invoicelist/invoicelist.module').then( m => m.InvoicelistPageModule)
-  }
+  // {
+  //   path: 'printInvoice',
+  //   loadChildren: () => import('./printInvoice/printInvoice.module').then( m => m.PrintInvoicePageModule)
+  //   // path: 'invoicelist',
+  //   // loadChildren: () => import('../invoicelist/invoicelist.module').then( m => m.InvoicelistPageModule)
+  // }
 ];
 
 @NgModule({

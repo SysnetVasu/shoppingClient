@@ -18,7 +18,9 @@ export class OrderDetailsPage implements OnInit {
  orderID: any;
  customerOrders:any;
  orderDetails: any;
- total: any; 
+ netTotal: any;
+ gst:any; 
+ total: any;
   totalItems: any;
   constructor(
     private orderService:OrderService,
@@ -58,8 +60,11 @@ export class OrderDetailsPage implements OnInit {
         itemCount=  itemCount+1;
       }
       this.totalItems=itemCount;
-      this.total = Math.round(sum*100)/100;
-        console.log(this.total);
+      // this.total = Math.round(sum*100)/100;
+      //   console.log(this.total);
+      this.gst=this.customerOrders.taxAmount;
+      this.total=this.customerOrders.totalPrice;
+      this.netTotal=this.customerOrders.netTotal;
     });
     // .subscribe((orderDetailed:IOrder)=>
     // {

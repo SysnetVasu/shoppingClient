@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IInvoiceToCreate, IOrderToCreate } from '../_models/order';
+import { IInvoiceToCreate, IOrderToCreate, IOrderToInvoice } from '../_models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,11 @@ export class InvoiceService {
   }
 
    //Creates an order.
- createInvoice(orderNo: any) {
-
-  return this.http.get(this.baseUrl + 'Invoice/CreateInvoce?OrderNo='+ orderNo);
+//  createInvoice(orderId : IOrderToInvoice) {
+  createInvoice(OrderId: any) {
+  console.log("IOrderToInvoice: ", OrderId);
+  // return this.http.post(this.baseUrl + 'Invoice',JSON.stringify(orderId));
+   return this.http.get(this.baseUrl + 'Invoice/CreateInvoce?OrderId='+ OrderId);
 }
   //Returns all orders.
   getInvoiceList() {
@@ -42,7 +44,7 @@ export class InvoiceService {
   }
   //PDF an Invoice.
  getPrintInvoice(invoiceNo: any) {
-
+console.log("getprintinvoice: ", this.baseUrl + 'Invoice/PrintInvoice/'+ invoiceNo);
   return this.http.get(this.baseUrl + 'Invoice/PrintInvoice/'+ invoiceNo);
 }
 }

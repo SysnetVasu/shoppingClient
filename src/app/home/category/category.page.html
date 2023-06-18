@@ -19,7 +19,7 @@
   <div>
   
     <ion-row>
-      <ion-col class="detail_div" size="3" *ngFor="let category of categories"  (click)="getCategoryProducts(category.id)">
+    <ion-col class="detail_div" size="3" *ngFor="let category of categories"  (click)="getCategoryProducts(category.id)">
         <!-- <img [src]="item.img"> -->
         <img src="{{baseUrl}}Content/products/{{category.thumbnailUrl}}"
         onerror="this.onerror=null;this.src='/assets/NoImage.jpg';"/>

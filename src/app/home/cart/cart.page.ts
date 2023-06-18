@@ -139,31 +139,52 @@ export class CartPage implements OnInit {
     const cart = this.cartService.getCurrentCartValue();
     try {
       const orderToCreate = this.getOrderToCreate(cart);
-
+      console.log('orderToCreate : ', orderToCreate);
       this.loadingController
       .create({ message:"placing order.."})
       .then(loadingEl => {
             loadingEl.present();
-            this.orderService.creatOrder(orderToCreate).subscribe(()=>{
-              this.cartService.deleteCart(cart);
+            this.orderService.creatOrder(orderToCreate).subscribe(()=>{             
               this.selectedCustomer="";
               loadingEl.dismiss();
               this.presentToast();
               this.router.navigate(["/home/orders"]);
-            });       
+              this.cartService.deleteCart(cart);
+            },
+            err => {
+              console.log('Order creation Error : ', err);
+              this.showOnceToast('Order Not created !!', err.error.message);
+            }
+            );       
       });     
     } 
     catch (error) {
       console.log(error);
     }
   }
-
+  showOnceToast(header: any, message: any) {
+    this.toastController.dismiss().then((obj) => {
+    }).catch(() => {
+    }).finally(() => {
+      this.showToast(header, message);
+    });
+  }
   private getOrderToCreate(cart: ICart) {
     return {
       cartId: cart.id
     };
   }
-
+  showToast(header: any, message: any) {
+    this.toastController.create({
+      header: header,
+      message: message,
+      position: 'bottom',
+      duration: 5000,
+      color: 'dark',
+    }).then((obj) => {
+      obj.present();
+    });
+  }
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Order placed successfully.',

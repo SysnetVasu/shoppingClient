@@ -20,6 +20,8 @@ export class InvoiceDetailsPage implements OnInit {
  customerInvoice:any;
  invoiceDetails: any;
  total: any; 
+ netTotal:any;
+ gst: any;
   totalItems: any;
   constructor(
     private orderService:OrderService,
@@ -60,9 +62,10 @@ export class InvoiceDetailsPage implements OnInit {
         itemCount=  itemCount+1;
       }
       this.totalItems=itemCount;
-      this.total = Math.round(sum*100)/100;
-        console.log('Total items: ',this.totalItems);
-        console.log('Total: ',this.total);
+      this.total=this.customerInvoice.grandTotal;
+      this.gst=this.customerInvoice.totalTax;
+      this.netTotal=this.customerInvoice.netTotal;
+      
     });
     // .subscribe((orderDetailed:IOrder)=>
     // {

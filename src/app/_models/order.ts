@@ -21,3 +21,6 @@ export interface IOrderItem {
     price: number;
     quantity: number;
 }
+export interface IOrderToInvoice {
+    id: any;
+}

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
-import { IOrder } from 'src/app/_models/order';
+import { IOrder,IOrderToInvoice } from 'src/app/_models/order';
 import { InvoiceService } from 'src/app/_services/Invoice.service ';
 import { OrderService } from 'src/app/_services/order.service';
 import { environment } from 'src/environments/environment';
@@ -16,6 +16,7 @@ export class InvoicePage implements OnInit {
   //orders:IOrder[];
   invoiceList: any;
   invoiceNo: any;
+
   @Input() printInvoice: any;
   constructor(
     private orderService:OrderService,
@@ -26,6 +27,7 @@ export class InvoicePage implements OnInit {
 
   ngOnInit() {
      this.getInvoiceList();
+     this.printInvoice= this.baseUrl+"Content/invoice/";
   }
  
   //Gets all orders.
@@ -85,16 +87,16 @@ console.log('Create Invoice: ',orderId);
     });
     }
 
-    onPreviewImage(value: any) {
-     
-      //this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
-      // console.log("pdf file: ",this.printInvoice);
+    onPreviewImage(value: any) {    
+      
       console.log('OnPreview image id:', value);
-      this.invoiceService.getPrintInvoice(value.id).subscribe(data => {
+      this.invoiceService.getPrintInvoice(value).subscribe(data => {
         this.printInvoice = data;
-        console.log('printInvoice:', this.printInvoice);
+        console.log('printInvoice dynamic:', this.printInvoice);
       })
-      this.router.navigate(['/home/printInvoice']);
+     // this.printInvoice= this.baseUrl+"Content/invoice/IN-20230325053443.pdf";
+      console.log('printInvoice:', this.printInvoice);
+      //this.router.navigate(['/home/invoice/printInvoice']);
     }
     // openAndroidPDF(){
     //   let tempLocation = this.OnlineToggle ? this.onlineLocation : this.pdf.location;
