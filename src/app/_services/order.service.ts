@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IInvoiceToCreate, IOrderToCreate } from '../_models/order';
+import { IInvoiceToCreate, IOrderToCreate, IOrderUpdate } from '../_models/order';
+import { SourceCode } from 'eslint';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,17 @@ export class OrderService {
     console.log('create Order url:  ',this.baseUrl + 'orders', order);
     return this.http.post(this.baseUrl + 'orders', order);
   }
-  
+   //update order.
+   UpdateOrder(order: IOrderUpdate) {
+    console.log('Update Order url:  ',this.baseUrl + 'orders/UpdateOrder', order);
+    return this.http.post(this.baseUrl + 'orders/UpdateOrder', order)
+    .subscribe((response: IOrderUpdate) => {      
+      console.log('Update Order success');
+    }, error => {
+      console.log('Update Order error:  ',error);
+    });
+  }
+ 
   //Returns all orders.
   getOrdersForUser() {
     return  this.http.get(this.baseUrl + 'orders');

@@ -60,9 +60,12 @@ export class CategoryPage implements OnInit {
        loadingEl.dismiss();
        console.log(this.categories);
      }, error => {
-       console.log(error);
+      loadingEl.dismiss();
+           console.log(" getcategory error: ",error);
      });
-     });
+     }
+     );
+     
  }
 
 }
