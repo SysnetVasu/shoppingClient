@@ -131,7 +131,7 @@ console.log('addToCart : ', this.product);
       // this.product.thumbnailUrl=this.product.thumbnailUrl;
       //  console.log('thumbnailUrl:',this.product.thumbnailUrl);
        console.log('additemtocart:',this.product);
-        this.cartService.addItemToCart('CUS-001',this.product, this.quantity);
+        this.cartService.addItemToCart('',this.product, this.quantity);
         
           loadingEl.dismiss();
           this.presentToast();
